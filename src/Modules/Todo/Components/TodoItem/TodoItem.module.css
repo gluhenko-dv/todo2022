@@ -22,3 +22,7 @@
   margin-top: 5px;
   padding-left: 10px;
 }
+.itemText {
+  width: 100%;
+  cursor: pointer;
+}

@@ -1,16 +1,17 @@
-.todoForm {
+.TodoInput {
   width: 100%;
-  margin-top: 100px;
   display: flex;
   justify-content: space-between;
 }
 
 .formInput {
-  padding: 5px;
-  font-size: 18px;
+  padding: 10px;
+  font-size: 16px;
   border: none;
   width: 100%;
   border-bottom: 2px solid black;
+  height: 180px;
+  background-color: whitesmoke;
 }
 
 .formInput:focus {
@@ -25,6 +26,10 @@
   cursor: pointer;
   text-transform: uppercase;
   transition: 0.3s;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 40%;
 }
 
 .succesButton:hover {

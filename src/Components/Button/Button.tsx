@@ -1,13 +1,12 @@
-
 interface IButtonProps {
   title: string;
-  type: "button" | "submit" | "reset" | undefined;
+  onClick: () => void;
   className: string;
 }
 
-const Button: React.FC<IButtonProps> = ({ title, type, className }) => {
+const Button: React.FC<IButtonProps> = ({ title, onClick, className }) => {
   return (
-    <button className={className} type={type}>
+    <button className={className} onClick={onClick}>
       {title}
     </button>
   );

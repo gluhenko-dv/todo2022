@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import TodoItem from "../TodoItem/TodoItem";
-import { todoList } from "./TodoListSlice";
+import { todoList } from "../../Store/TodoListSlice";
 import styles from "./TodoList.module.css";
-
 import { ITodoItem } from "../../Interfaces";
 import { useAppSelector } from "../../../../App/hooks";
 

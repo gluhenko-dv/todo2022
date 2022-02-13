@@ -1,31 +1,48 @@
-import { FormEvent } from "react";
+import { useCallback, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../../../App/hooks";
-import Button from "../../../../Components";
-
+import { Button, Modal } from "../../../../Components";
+import { toggleBodyOverflow } from "../../../../Utils/helpers";
 import { ITodoItem } from "../../Interfaces";
-import { todoList, updateTodoList } from "../TodoList/TodoListSlice";
+import TodoUpdate from "../TodoUpdate/TodoUpdate";
+import { todoList, updateTodoList } from "../../Store/TodoListSlice";
 import styles from "./TodoItem.module.css";
 
 interface ITodoItemProps extends ITodoItem {
   idx: number;
 }
 
-const TodoItem: React.FC<ITodoItemProps> = ({ item, idx }) => {
+const TodoItem: React.FC<ITodoItemProps> = ({ id, item, idx }) => {
   const todoData = useAppSelector(todoList);
   const dispatch = useAppDispatch();
 
-  const deleteItem = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const deleteItem = () => {
     const newTodoData: ITodoItem[] = [...todoData];
     newTodoData.splice(idx, 1);
     dispatch(updateTodoList(newTodoData));
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+  const onClickOpenModal = useCallback(() => {
+    setIsOpen(true);
+    toggleBodyOverflow(true);
+  }, []);
+
   return (
-    <form className={styles.item} onSubmit={deleteItem}>
-      <span>{`${idx + 1}.  ${item}`}</span>
-      <Button title="удалить" type="submit" className={styles.deleteButton} />
-    </form>
+    <div>
+      <article className={styles.item} onSubmit={deleteItem}>
+        <span className={styles.itemText} onClick={onClickOpenModal}>
+          {`${idx + 1}.  ${item}`}
+        </span>
+        <Button
+          title="удалить"
+          className={styles.deleteButton}
+          onClick={deleteItem}
+        />
+      </article>
+      <Modal title="Редактировать дело" isOpen={isOpen} setIsOpen={setIsOpen}>
+        <TodoUpdate idx={idx} id={id} item={item} type="edit" setIsOpen={setIsOpen} />
+      </Modal>
+    </div>
   );
 };
 

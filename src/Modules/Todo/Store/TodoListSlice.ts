@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../../../App/store";
-
-
-import { ITodoItem } from "../../Interfaces";
+import { RootState } from "../../../App/store";
+import { ITodoItem } from "../Interfaces";
 
 export interface TodoListState {
   items: ITodoItem[];
@@ -18,15 +16,10 @@ export const todoListSlice = createSlice({
   name: "todoList",
   initialState,
   reducers: {
-    updateTodoList: (
-      state,
-      action: PayloadAction<ITodoItem[]>
-    ) => {
+    updateTodoList: (state, action: PayloadAction<ITodoItem[]>) => {
       state.items = action.payload;
     },
   },
-
-  extraReducers: (_builder) => {},
 });
 
 export const { updateTodoList } = todoListSlice.actions;
